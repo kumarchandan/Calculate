@@ -7,8 +7,7 @@ var nameExpense = {name:[],expense:[]};
 
 var htmlInputNameExpense = '<li id="{LISTID}"><input id="input-name" type="text" placeholder="Input Name">'+
 					  	   '<input id="input-expense" type="text" placeholder="Input expenses"></li>';
-var htmlBtnInputNameExpense = '<li><button id="btn-name-expense" class="btn btn-success">Calculate</button>'+
-								  '<button id="btn-reset" class="btn btn-info">Reset</button></li>';
+var htmlBtnInputNameExpense = '<li><button id="btn-name-expense" class="btn btn-success">Calculate</button></li>';
 
 $(document).ready(function(){
 	
