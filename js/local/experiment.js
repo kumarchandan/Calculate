@@ -6,8 +6,9 @@ var negativeBalance = {name:[],expense:[]};
 var nameExpense = {name:[],expense:[]};
 
 var htmlInputNameExpense = '<li id="{LISTID}"><input id="input-name" type="text" placeholder="Input Name">'+
-					  	   '<input id="input-expense" type="text" placeholder="Input expenses"></li>';
-var htmlBtnInputNameExpense = '<li><button id="btn-name-expense" class="btn btn-success">Calculate</button></li>';
+					  	   '<input id="input-expense" type="text" placeholder="Input expenses"><span id="{ADDERID}" class="glyphicon glyphicon-plus"></span></li>';
+var htmlBtnInputNameExpense = '<li><button id="btn-name-expense" class="btn btn-success">Calculate</button>'+
+								  '<button id="btn-reset" class="btn btn-info">Reset</button></li>';
 
 $(document).ready(function(){
 	
@@ -19,13 +20,25 @@ $(document).ready(function(){
 			$('#btn-no-of-people').css('display','none');
 			$('div#variable-div').append('<ul id="ul-name-expense"></ul>').append(htmlBtnInputNameExpense);
 			for(var i=0;i<noOfPeople;i++){
-				$('#ul-name-expense').append(htmlInputNameExpense.replace("{LISTID}","list_"+i));
+				$('#ul-name-expense').append(htmlInputNameExpense.replace("{LISTID}","list_"+i).replace("{ADDERID}", "add-expense-input-"+i));
 			}
 		}else{
 			alert('Please input number of people !');
 		}
 		bindNameExpenseButton();				// fill the object nameExpense with name and expenses done
+		bindResetButton();						// bind reset button
+		bindAddExpenseBox();
 	});
+	
+	var bindAddExpenseBox = function(){
+		var a;
+	}
+	
+	var bindResetButton = function(){				// Reload the page on the click of reset button
+		$('#btn-reset').click(function(){
+			location.reload();
+		});
+	};
 	
 	var bindNameExpenseButton = function(){
 		$('#btn-name-expense').click(function(){
