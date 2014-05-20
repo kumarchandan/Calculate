@@ -6,7 +6,7 @@ var negativeBalance = {name:[],expense:[]};
 var nameExpense = {name:[],expense:[]};
 
 var htmlInputNameExpense = '<li id="{LISTID}"><input id="input-name" type="text" placeholder="Input Name">'+
-					  	   '<input id="input-expense" type="text" placeholder="Input expenses"><span id="{ADDERID}" class="glyphicon glyphicon-plus"></span></li>';
+					  	   '<input id="input-expense-0" type="text" placeholder="Input expenses"><span id="{ADDERID}" class="glyphicon glyphicon-plus"></span></li>';
 var htmlBtnInputNameExpense = '<li><button id="btn-name-expense" class="btn btn-success">Calculate</button>'+
 								  '<button id="btn-reset" class="btn btn-info">Reset</button></li>';
 
@@ -27,12 +27,17 @@ $(document).ready(function(){
 		}
 		bindNameExpenseButton();				// fill the object nameExpense with name and expenses done
 		bindResetButton();						// bind reset button
-		bindAddExpenseBox();
+		bindAddExpenseInputField();
 	});
 	
-	var bindAddExpenseBox = function(){
-		var a;
-	}
+	var bindAddExpenseInputField = function(){
+		$('span').click(function(){
+			var adderId = $(this).attr('id');			// get which plus sign clicked
+			var listIdOfAdder = $('#'+adderId).parent();		// get its parent list id
+			var noOfListItem = listIdOfAdder.children('input').length - 1;			// store size of expense input fields to make new input expense field ids
+			listIdOfAdder.append('<input id="input-expense-'+noOfListItem+'" type="text" placeholder="Input expenses">');			// append more input expense field
+		});
+	};
 	
 	var bindResetButton = function(){				// Reload the page on the click of reset button
 		$('#btn-reset').click(function(){
@@ -45,9 +50,14 @@ $(document).ready(function(){
 			var countNoOfPeople = $('ul#ul-name-expense li').length;
 			try {
 				for(var i=0;i<countNoOfPeople;i++){
+					var noOfExpenseField = $('#list_'+i+' input').length - 1;
 					nameExpense.name.push($('#list_'+i+' #input-name').val());
-					nameExpense.expense.push($('#list_'+i+' #input-expense').val());
-					totalAmt += parseInt($('#list_'+i+' #input-expense').val());
+					var totalExpenseIndividual = 0;
+					for(var j = 0; j < noOfExpenseField; j++){
+						totalExpenseIndividual += parseInt($('#list_'+i+' #input-expense-'+j).val());
+					}
+					nameExpense.expense.push(totalExpenseIndividual);
+					totalAmt += totalExpenseIndividual;
 				}
 			} catch (e) {
 				console.log("Error at bindNameExpenseButton !");
